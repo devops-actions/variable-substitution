@@ -1,0 +1,28 @@
+
+name: "Issue/PR Tag"
+
+permissions:
+  contents: read
+
+# Trigger workflow when issues or pull requests are opened/edited,
+# or when this workflow file is modified
+on:
+  issues:
+    types: [opened, edited]
+  pull_request:
+    types: [opened, edited]
+
+jobs:
+  notify:
+    uses: devops-actions/.github/.github/workflows/issue-pr-tag.yml@main
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: write
+    with:
+      org_name: devops-actions
+      tag_team: devops-actions-team
+      issue: ${{ github.event.issue.number }}
+      pr: ${{ github.event.pull_request.number }}
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}
