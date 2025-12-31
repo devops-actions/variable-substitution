@@ -6,7 +6,7 @@ import { XmlSubstitution } from "../operations/xmlVariableSubstitution";
 import * as fs from 'fs';
 import * as path from 'path';
 import sinon from "sinon";
-import { expect } from 'chai';
+import { strict as assert } from 'assert';
 
 describe('Test Xml Variable Substitution', () => {
     const resourcesDir = path.resolve(__dirname, '../../src/Tests/Resources');
@@ -49,7 +49,7 @@ describe('Test Xml Variable Substitution', () => {
         let xmlDomUtilityInstance = new XmlDomUtility(fileContent);
         let xmlSubstitution = new XmlSubstitution(xmlDomUtilityInstance);
         let isApplied = xmlSubstitution.substituteXmlVariables();
-        expect(isApplied).to.equal(true);
+        assert.strictEqual(isApplied, true);
         
         let xmlDocument = xmlDomUtilityInstance.getXmlDom();
         replaceEscapeXMLCharacters(xmlDocument);
@@ -66,6 +66,6 @@ describe('Test Xml Variable Substitution', () => {
         replaceEscapeXMLCharacters(expectedXmlDocument);
         let expectedDomContent = '\uFEFF' + xmlDomUtilityInstance.getContentWithHeader(expectedXmlDocument);
         expectedDomContent = expectedDomContent.split("APOS_CHARACTER_TOKEN").join("'");
-        expect(domContent).to.equal(expectedDomContent);
+        assert.strictEqual(domContent, expectedDomContent);
     });
 });

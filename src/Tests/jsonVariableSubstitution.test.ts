@@ -1,5 +1,5 @@
 import sinon from "sinon";
-import { expect } from 'chai';
+import { strict as assert } from 'assert';
 
 import { EnvTreeUtility, isPredefinedVariable } from "../operations/envVariableUtility";
 
@@ -99,51 +99,51 @@ describe('Test JSON Variable Substitution', () => {
 
     it("Should substitute", () => {
         console.log(JSON.stringify(jsonObject));
-        expect(isApplied).to.equal(true);
+        assert.strictEqual(isApplied, true);
     });
 
     it("Validate simple string change", () => {
-        expect(jsonObject['data']['ConnectionString']).to.equal('database_connection');
-        expect(jsonObject['data']['userName']).to.equal('db_admin');
+        assert.strictEqual(jsonObject['data']['ConnectionString'], 'database_connection');
+        assert.strictEqual(jsonObject['data']['userName'], 'db_admin');
     });
 
     it("Validate system variable elimination", () => {
-        expect(jsonObject['system']['debug']).to.equal('no_change');
+        assert.strictEqual(jsonObject['system']['debug'], 'no_change');
     });
 
     it("Validate special variables", () => {
-        expect(jsonObject['&pl']['ch@r@cter.k^y']).to.equal('*.config');
+        assert.strictEqual(jsonObject['&pl']['ch@r@cter.k^y'], '*.config');
     });
 
     it("Validate case sensitive variables", () => {
-        expect(jsonObject['User.Profile']).to.equal('do_not_replace');
+        assert.strictEqual(jsonObject['User.Profile'], 'do_not_replace');
     });
 
     it("Validate inbuilt JSON attributes substitution", () => {
-        expect(jsonObject['constructor.name']).to.equal('newConstructorName');
-        expect(jsonObject['constructor']['name']).to.equal('newConstructorName');
-        expect(jsonObject['constructor']['valueOf']).to.equal('constructorNewValue');
+        assert.strictEqual(jsonObject['constructor.name'], 'newConstructorName');
+        assert.strictEqual(jsonObject['constructor']['name'], 'newConstructorName');
+        assert.strictEqual(jsonObject['constructor']['valueOf'], 'constructorNewValue');
     });
 
     it("Validate Array Object", () => {
-        expect(jsonObject['profile']['users'].length).to.equal(4);
+        assert.strictEqual(jsonObject['profile']['users'].length, 4);
         let newArray = ["suaggar", "rok", "asranja", "chaitanya"];
-        expect(jsonObject['profile']['users']).to.deep.equal(newArray);
+        assert.deepStrictEqual(jsonObject['profile']['users'], newArray);
     });
 
     it("Validate Boolean", () => {
-        expect(jsonObject['profile']['enabled']).to.equal(false);
+        assert.strictEqual(jsonObject['profile']['enabled'], false);
     });
 
     it("Validate Number(float)", () => {
-        expect(jsonObject['profile']['somefloat']).to.equal(97.75);
+        assert.strictEqual(jsonObject['profile']['somefloat'], 97.75);
     });
 
     it("Validate Number(int)", () => {
-        expect(jsonObject['profile']['version']).to.equal(1173);
+        assert.strictEqual(jsonObject['profile']['version'], 1173);
     });
 
     it("Validate Object", () => {
-        expect(jsonObject['profile']['preimum_level']).to.deep.equal({"suaggar": "V4", "rok": "V5", "asranja": { "type" : "V6"}});
+        assert.deepStrictEqual(jsonObject['profile']['preimum_level'], {"suaggar": "V4", "rok": "V5", "asranja": { "type" : "V6"}});
     });
 });

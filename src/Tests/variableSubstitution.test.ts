@@ -1,7 +1,7 @@
 import { JsonSubstitution } from '../operations/jsonVariableSubstitutionUtility';
 import { VariableSubstitution } from "../variableSubstitution";
 import { XmlSubstitution } from '../operations/xmlVariableSubstitution';
-import { expect } from 'chai';
+import { strict as assert } from 'assert';
 
 import * as path from 'path';
 import sinon from "sinon";
@@ -30,7 +30,7 @@ describe("Test variable substitution main", () => {
         }
         catch(e) {
         }
-        expect(spy.calledWith("Applying variable substitution on XML file: " + file)).to.be.true;
+        assert.strictEqual(spy.calledWith("Applying variable substitution on XML file: " + file), true);
     });
 
     it("Valid JSON", () => {
@@ -42,7 +42,7 @@ describe("Test variable substitution main", () => {
         }
         catch(e) {
         }
-        expect(spy.calledWith("Applying variable substitution on JSON file: " + file)).to.be.true;
+        assert.strictEqual(spy.calledWith("Applying variable substitution on JSON file: " + file), true);
     });
 
     it("Invalid JSON", () => {
@@ -54,7 +54,7 @@ describe("Test variable substitution main", () => {
         }
         catch(e) {
         }
-        expect(spy.calledWith("Applying variable substitution on JSON file: " + file)).to.be.false;
+        assert.strictEqual(spy.calledWith("Applying variable substitution on JSON file: " + file), false);
     });
 
     it("Valid YAML", () => {
@@ -66,7 +66,7 @@ describe("Test variable substitution main", () => {
         }
         catch(e) {
         }
-        expect(spy.calledWith("Applying variable substitution on YAML file: " + file)).to.be.true;
+        assert.strictEqual(spy.calledWith("Applying variable substitution on YAML file: " + file), true);
     });
 
     it("Invalid YAML", () => {
@@ -78,6 +78,6 @@ describe("Test variable substitution main", () => {
         }
         catch(e) {
         }
-        expect(spy.calledWith("Applying variable substitution on YAML file: " + file)).to.be.false;
+        assert.strictEqual(spy.calledWith("Applying variable substitution on YAML file: " + file), false);
     });    
 });
