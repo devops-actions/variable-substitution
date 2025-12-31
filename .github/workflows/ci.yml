@@ -87,7 +87,8 @@ jobs:
         $headers = @{
           "Authorization" = "token ${env:GITHUB_TOKEN}"
         }
-        Invoke-RestMethod -Method POST -Uri $url -Headers $headers -Body "{ `"body`": `"${comment}`" }"
+        $payload = @{ body = $comment } | ConvertTo-Json -Depth 3
+        Invoke-RestMethod -Method POST -Uri $url -Headers $headers -ContentType "application/json" -Body $payload
 
   test_action_job:
     name: 'Execute the local action'
