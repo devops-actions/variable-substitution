@@ -78,7 +78,7 @@ export class VariableSubstitution {
                     let yamlObject = this.fileContentCache.get(file);
                     let isYamlSubstitutionApplied = jsonSubsitution.substituteJsonVariable(yamlObject, EnvTreeUtility.getEnvVarTree());
                     if(isYamlSubstitutionApplied) {
-                        fs.writeFileSync(file, (fileEncodeType.withBOM ? '\uFEFF' : '') + yaml.safeDump(yamlObject));
+                            fs.writeFileSync(file, (fileEncodeType.withBOM ? '\uFEFF' : '') + yaml.dump(yamlObject));
                         console.log(`Successfully updated config file: ${file}`);
                     }
                     else {
@@ -114,7 +114,7 @@ export class VariableSubstitution {
     
     private isYaml(file: string, content: string) : boolean {
         try {
-            let yamlObject = yaml.safeLoad(content);
+            let yamlObject = yaml.load(content);
             if(!this.fileContentCache.has(file)) {
                 this.fileContentCache.set(file, yamlObject);
             }
