@@ -4,6 +4,8 @@ on:
       - master
   push:
 
+permissions: read-all
+
 jobs:
   build_test_job:
     name: 'Build and test job'
