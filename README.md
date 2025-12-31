@@ -1,5 +1,5 @@
 # Forked from original (upstream has been archived)
-This is a fork from [github.com/microsoft/variable-substitution](https://github.com/microsoft/variable-substitution), so that I could fix the 'node12 is being deprecated' warning. I'm kepping the dependencies up to date as well.
+This is a fork from [github.com/microsoft/variable-substitution](https://github.com/microsoft/variable-substitution), so that I could fix the 'node12 is being deprecated' warning. I'm keeping the dependencies up to date as well.
 
 OpenSSF Scorecard setup for this repo: [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/devops-actions/variable-substitution/badge)](https://api.securityscorecards.dev/projects/github.com/devops-actions/variable-substitution)
 
