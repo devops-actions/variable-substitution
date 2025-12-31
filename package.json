@@ -4,9 +4,11 @@
   "description": "File transformation and variable substitution task: Update tokens in your XML based configuration files and then replaces those tokens with variable values. Currently XML, JSON, YAML file formats are supported for variable substitution.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha -r ts-node/register src/**/*.test.ts",
     "build": "tsc",
-    "coverage": "nyc npm run test"
+    "pretest": "npm run build",
+    "test": "mocha --recursive \"lib/**/*.test.js\"",
+    "precoverage": "npm run build",
+    "coverage": "nyc mocha --recursive \"lib/**/*.test.js\""
   },
   "repository": {
     "type": "git",
@@ -23,11 +25,9 @@
   },
   "homepage": "https://github.com/SumiranAgg/filetransform#readme",
   "devDependencies": {
-    "@types/chai": "^5.2.3",
     "@types/minimatch": "^6.0.0",
     "@types/mocha": "^10.0.10",
     "@types/node": "^25.0.3",
-    "chai": "^6.2.2",
     "mocha": "^11.7.5",
     "nyc": "^17.1.0",
     "sinon": "^21.0.1",

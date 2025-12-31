@@ -1,12 +1,13 @@
 import { JsonSubstitution } from '../operations/jsonVariableSubstitutionUtility';
 import { VariableSubstitution } from "../variableSubstitution";
 import { XmlSubstitution } from '../operations/xmlVariableSubstitution';
-import { expect } from 'chai';
+import { strict as assert } from 'assert';
 
-import path = require('path');
-import sinon = require("sinon");
+import * as path from 'path';
+import sinon from "sinon";
 
 describe("Test variable substitution main", () => {
+    const resourcesDir = path.resolve(__dirname, '../../src/Tests/Resources');
     var spy, JsonSubstitutionMock, XmlSubstitutionMock;
     before(() => {
         spy = sinon.spy(console, "log");
@@ -21,7 +22,7 @@ describe("Test variable substitution main", () => {
     });
 
     it("Valid XML", () => {
-        let file = path.join(__dirname, "/Resources/Web.config");
+        let file = path.join(resourcesDir, "Web.config");
         let filesArr = file.split(",");
         let varSub = new VariableSubstitution();
         try {
@@ -29,11 +30,11 @@ describe("Test variable substitution main", () => {
         }
         catch(e) {
         }
-        expect(spy.calledWith("Applying variable substitution on XML file: " + file)).to.be.true;
+        assert.strictEqual(spy.calledWith("Applying variable substitution on XML file: " + file), true);
     });
 
     it("Valid JSON", () => {
-        let file = path.join(__dirname, "/Resources/test.json");
+        let file = path.join(resourcesDir, "test.json");
         let filesArr = file.split(",");
         let varSub = new VariableSubstitution();
         try {
@@ -41,11 +42,11 @@ describe("Test variable substitution main", () => {
         }
         catch(e) {
         }
-        expect(spy.calledWith("Applying variable substitution on JSON file: " + file)).to.be.true;
+        assert.strictEqual(spy.calledWith("Applying variable substitution on JSON file: " + file), true);
     });
 
     it("Invalid JSON", () => {
-        let file = path.join(__dirname, "/Resources/Wrong_test.json");
+        let file = path.join(resourcesDir, "Wrong_test.json");
         let filesArr = file.split(",");
         let varSub = new VariableSubstitution();
         try {
@@ -53,11 +54,11 @@ describe("Test variable substitution main", () => {
         }
         catch(e) {
         }
-        expect(spy.calledWith("Applying variable substitution on JSON file: " + file)).to.be.false;
+        assert.strictEqual(spy.calledWith("Applying variable substitution on JSON file: " + file), false);
     });
 
     it("Valid YAML", () => {
-        let file = path.join(__dirname, "/Resources/test.yaml");
+        let file = path.join(resourcesDir, "test.yaml");
         let filesArr = file.split(",");
         let varSub = new VariableSubstitution();
         try {
@@ -65,11 +66,11 @@ describe("Test variable substitution main", () => {
         }
         catch(e) {
         }
-        expect(spy.calledWith("Applying variable substitution on YAML file: " + file)).to.be.true;
+        assert.strictEqual(spy.calledWith("Applying variable substitution on YAML file: " + file), true);
     });
 
     it("Invalid YAML", () => {
-        let file = path.join(__dirname, "/Resources/Wrong_test.yml");
+        let file = path.join(resourcesDir, "Wrong_test.yml");
         let filesArr = file.split(",");
         let varSub = new VariableSubstitution();
         try {
@@ -77,6 +78,6 @@ describe("Test variable substitution main", () => {
         }
         catch(e) {
         }
-        expect(spy.calledWith("Applying variable substitution on YAML file: " + file)).to.be.false;
+        assert.strictEqual(spy.calledWith("Applying variable substitution on YAML file: " + file), false);
     });    
 });
