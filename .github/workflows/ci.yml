@@ -50,7 +50,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       shell: pwsh # help actionlinter to distinguish the correct shell being used
       run: |
-        $coverage_result = npm run coverage
+        $coverage_result = npm run coverage 2>&1
         $start = $false;
         $middle = $false; 
         $end = $false; 
@@ -79,9 +79,13 @@ jobs:
           $count++
         }
 
-        $tbl_md = $coverage_result[($start_index+1)..($end_index-1)] -join "\n"
-        $summary = $coverage_result[($end_index + 1)..$count] -join "\n"
-        $comment = $tbl_md + "\n" + $summary
+        # Extract coverage table and summary
+        $tbl_md = $coverage_result[($start_index+1)..($end_index-1)] -join "`n"
+        $summary = $coverage_result[($end_index + 1)..$count] -join "`n"
+        
+        # Format the comment with markdown for better readability
+        $codeBlock = '```'
+        $comment = "## Test Coverage Report`n`n$codeBlock`n$tbl_md`n`n$summary`n$codeBlock"
 
         $url = "https://api.github.com/repos/${env:GITHUB_REPOSITORY}/issues/${env:PR_NUMBER}/comments"
         $headers = @{
