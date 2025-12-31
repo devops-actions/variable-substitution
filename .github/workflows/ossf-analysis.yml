@@ -6,7 +6,7 @@ on:
     # Weekly on Saturdays.
     - cron: '20 2 * * 6'
   push:
-    branches: master
+    branches: main
   workflow_dispatch:
     
 # Declare default GITHUB_TOKEN permissions as read only.
