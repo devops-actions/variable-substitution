@@ -3,14 +3,13 @@ import * as envVarUtility from "../operations/envVariableUtility";
 import { XmlDomUtility } from "../operations/xmlDomUtility";
 import { XmlSubstitution } from "../operations/xmlVariableSubstitution";
 
-import chai = require('chai');
-import fs = require('fs');
-import path = require('path');
-import sinon = require("sinon");
-
-var expect = chai.expect;
+import * as fs from 'fs';
+import * as path from 'path';
+import sinon from "sinon";
+import { expect } from 'chai';
 
 describe('Test Xml Variable Substitution', () => {
+    const resourcesDir = path.resolve(__dirname, '../../src/Tests/Resources');
     it("Should substitute", () => {
         let envVarUtilityMock = sinon.mock(envVarUtility);
         envVarUtilityMock.expects('getVariableMap').returns(
@@ -44,7 +43,7 @@ describe('Test Xml Variable Substitution', () => {
                 replaceEscapeXMLCharacters(xmlChild);
             }
         }
-        let source = path.join(__dirname, "/Resources/Web.config");
+        let source = path.join(resourcesDir, "Web.config");
         let fileBuffer: Buffer = fs.readFileSync(source);
         let fileContent: string = fileBuffer.toString('utf-8');
         let xmlDomUtilityInstance = new XmlDomUtility(fileContent);
@@ -59,7 +58,7 @@ describe('Test Xml Variable Substitution', () => {
             domContent = domContent.split(replacableTokenValue).join(xmlSubstitution.replacableTokenValues[replacableTokenValue]);
         }
 
-        let expectedResult = path.join(__dirname, "/Resources/Web_Expected.config");
+        let expectedResult = path.join(resourcesDir, "Web_Expected.config");
         fileBuffer = fs.readFileSync(expectedResult);
         let expectedContent: string = fileBuffer.toString('utf-8');
         let targetXmlDomUtilityInstance = new XmlDomUtility(expectedContent);

@@ -3,10 +3,11 @@ import { VariableSubstitution } from "../variableSubstitution";
 import { XmlSubstitution } from '../operations/xmlVariableSubstitution';
 import { expect } from 'chai';
 
-import path = require('path');
-import sinon = require("sinon");
+import * as path from 'path';
+import sinon from "sinon";
 
 describe("Test variable substitution main", () => {
+    const resourcesDir = path.resolve(__dirname, '../../src/Tests/Resources');
     var spy, JsonSubstitutionMock, XmlSubstitutionMock;
     before(() => {
         spy = sinon.spy(console, "log");
@@ -21,7 +22,7 @@ describe("Test variable substitution main", () => {
     });
 
     it("Valid XML", () => {
-        let file = path.join(__dirname, "/Resources/Web.config");
+        let file = path.join(resourcesDir, "Web.config");
         let filesArr = file.split(",");
         let varSub = new VariableSubstitution();
         try {
@@ -33,7 +34,7 @@ describe("Test variable substitution main", () => {
     });
 
     it("Valid JSON", () => {
-        let file = path.join(__dirname, "/Resources/test.json");
+        let file = path.join(resourcesDir, "test.json");
         let filesArr = file.split(",");
         let varSub = new VariableSubstitution();
         try {
@@ -45,7 +46,7 @@ describe("Test variable substitution main", () => {
     });
 
     it("Invalid JSON", () => {
-        let file = path.join(__dirname, "/Resources/Wrong_test.json");
+        let file = path.join(resourcesDir, "Wrong_test.json");
         let filesArr = file.split(",");
         let varSub = new VariableSubstitution();
         try {
@@ -57,7 +58,7 @@ describe("Test variable substitution main", () => {
     });
 
     it("Valid YAML", () => {
-        let file = path.join(__dirname, "/Resources/test.yaml");
+        let file = path.join(resourcesDir, "test.yaml");
         let filesArr = file.split(",");
         let varSub = new VariableSubstitution();
         try {
@@ -69,7 +70,7 @@ describe("Test variable substitution main", () => {
     });
 
     it("Invalid YAML", () => {
-        let file = path.join(__dirname, "/Resources/Wrong_test.yml");
+        let file = path.join(resourcesDir, "Wrong_test.yml");
         let filesArr = file.split(",");
         let varSub = new VariableSubstitution();
         try {

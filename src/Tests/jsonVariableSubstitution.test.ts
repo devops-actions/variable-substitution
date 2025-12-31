@@ -1,11 +1,9 @@
-import sinon = require("sinon");
-import chai = require('chai');
+import sinon from "sinon";
+import { expect } from 'chai';
 
 import { EnvTreeUtility, isPredefinedVariable } from "../operations/envVariableUtility";
 
 import { JsonSubstitution } from "../operations/jsonVariableSubstitutionUtility";
-
-var expect = chai.expect;
 
 describe('Test JSON Variable Substitution', () => {
     var jsonObject, isApplied;

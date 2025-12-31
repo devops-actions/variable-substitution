@@ -4,9 +4,11 @@
   "description": "File transformation and variable substitution task: Update tokens in your XML based configuration files and then replaces those tokens with variable values. Currently XML, JSON, YAML file formats are supported for variable substitution.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha -r ts-node/register src/**/*.test.ts",
     "build": "tsc",
-    "coverage": "nyc npm run test"
+    "pretest": "npm run build",
+    "test": "mocha --recursive \"lib/**/*.test.js\"",
+    "precoverage": "npm run build",
+    "coverage": "nyc mocha --recursive \"lib/**/*.test.js\""
   },
   "repository": {
     "type": "git",
