@@ -27,9 +27,9 @@
   "devDependencies": {
     "@types/minimatch": "^6.0.0",
     "@types/mocha": "^10.0.10",
-    "@types/node": "^25.1.0",
+    "@types/node": "^25.3.3",
     "mocha": "^11.7.5",
-    "nyc": "^17.1.0",
+    "nyc": "^18.0.0",
     "sinon": "^21.0.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
@@ -38,6 +38,6 @@
     "@actions/core": "^3.0.0",
     "js-yaml": "^4.1.1",
     "ltx": "^3.1.2",
-    "minimatch": "^10.2.3"
+    "minimatch": "^10.2.4"
   }
 }
