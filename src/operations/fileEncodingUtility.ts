@@ -1,4 +1,4 @@
-import core = require("@actions/core");
+import * as core from "@actions/core";
 
 export interface fileEncoding {
     encoding: string,

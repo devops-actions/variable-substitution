@@ -1,9 +1,9 @@
 import sinon from "sinon";
 import { strict as assert } from 'assert';
 
-import { EnvTreeUtility, isPredefinedVariable } from "../operations/envVariableUtility";
+import { EnvTreeUtility, isPredefinedVariable } from "../operations/envVariableUtility.js";
 
-import { JsonSubstitution } from "../operations/jsonVariableSubstitutionUtility";
+import { JsonSubstitution } from "../operations/jsonVariableSubstitutionUtility.js";
 
 describe('Test JSON Variable Substitution', () => {
     var jsonObject, isApplied;

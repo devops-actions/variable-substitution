@@ -1,6 +1,7 @@
 {
   "name": "filetransform",
   "version": "1.0.0",
+  "type": "module",
   "description": "File transformation and variable substitution task: Update tokens in your XML based configuration files and then replaces those tokens with variable values. Currently XML, JSON, YAML file formats are supported for variable substitution.",
   "main": "index.js",
   "scripts": {
@@ -35,7 +36,7 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "@actions/core": "^1.10.1",
+    "@actions/core": "^3.0.0",
     "js-yaml": "^4.1.1",
     "ltx": "^3.1.2",
     "minimatch": "^10.2.4"

@@ -1,14 +1,14 @@
-import core = require('@actions/core');
+import * as core from "@actions/core";
 
-import { EnvTreeUtility } from "./operations/envVariableUtility";
-import { JsonSubstitution } from './operations/jsonVariableSubstitutionUtility';
-import { XmlDomUtility } from "./operations/xmlDomUtility";
-import { XmlSubstitution } from './operations/xmlVariableSubstitution';
-import { findfiles } from "./operations/utility";
+import { EnvTreeUtility } from "./operations/envVariableUtility.js";
+import { JsonSubstitution } from './operations/jsonVariableSubstitutionUtility.js';
+import { XmlDomUtility } from "./operations/xmlDomUtility.js";
+import { XmlSubstitution } from './operations/xmlVariableSubstitution.js';
+import { findfiles } from "./operations/utility.js";
 
-import fs = require('fs');
-import yaml = require('js-yaml');
-import fileEncoding = require('./operations/fileEncodingUtility');
+import * as fs from 'fs';
+import * as yaml from 'js-yaml';
+import * as fileEncoding from './operations/fileEncodingUtility.js';
 
 export class VariableSubstitution {
     async run() {

@@ -1,13 +1,13 @@
-import { JsonSubstitution } from '../operations/jsonVariableSubstitutionUtility';
-import { VariableSubstitution } from "../variableSubstitution";
-import { XmlSubstitution } from '../operations/xmlVariableSubstitution';
+import { JsonSubstitution } from '../operations/jsonVariableSubstitutionUtility.js';
+import { VariableSubstitution } from "../variableSubstitution.js";
+import { XmlSubstitution } from '../operations/xmlVariableSubstitution.js';
 import { strict as assert } from 'assert';
 
 import * as path from 'path';
 import sinon from "sinon";
 
 describe("Test variable substitution main", () => {
-    const resourcesDir = path.resolve(__dirname, '../../src/Tests/Resources');
+    const resourcesDir = path.resolve(import.meta.dirname, '../../src/Tests/Resources');
     var spy, JsonSubstitutionMock, XmlSubstitutionMock;
     before(() => {
         spy = sinon.spy(console, "log");
