@@ -1,35 +1,38 @@
-import * as envVarUtility from "../operations/envVariableUtility";
-
-import { XmlDomUtility } from "../operations/xmlDomUtility";
-import { XmlSubstitution } from "../operations/xmlVariableSubstitution";
+import { XmlDomUtility } from "../operations/xmlDomUtility.js";
+import { XmlSubstitution } from "../operations/xmlVariableSubstitution.js";
 
 import * as fs from 'fs';
 import * as path from 'path';
-import sinon from "sinon";
 import { strict as assert } from 'assert';
 
 describe('Test Xml Variable Substitution', () => {
-    const resourcesDir = path.resolve(__dirname, '../../src/Tests/Resources');
-    it("Should substitute", () => {
-        let envVarUtilityMock = sinon.mock(envVarUtility);
-        envVarUtilityMock.expects('getVariableMap').returns(
-            new Map([
-                ['conntype', 'new_connType'],
-                ['MyDB', 'TestDB'],
-                ['webpages:Version' , '1.1.7.3'],
-                ['xdt:Transform' , 'DelAttributes'],
-                ['xdt:Locator' , 'Match(tag)'],
-                ['DefaultConnection', "Url=https://primary;Database=db1;ApiKey=11111111-1111-1111-1111-111111111111;Failover = {Url:'https://secondary', ApiKey:'11111111-1111-1111-1111-111111111111'}"],
-                ['OtherDefaultConnection', 'connectionStringValue2'],
-                ['ParameterConnection', 'New_Connection_String From xml var subs'],
-                ['connectionString', 'replaced_value'],
-                ['invariantName', 'System.Data.SqlServer'],
-                ['blatvar', 'ApplicationSettingReplacedValue'],
-                ['log_level', 'error,warning'],
-                ['Email:ToOverride', '']
-            ])
-        );
+    const resourcesDir = path.resolve(import.meta.dirname, '../../src/Tests/Resources');
 
+    const testEnvVars: Record<string, string> = {
+        'conntype': 'new_connType',
+        'MyDB': 'TestDB',
+        'webpages:Version': '1.1.7.3',
+        'xdt:Transform': 'DelAttributes',
+        'xdt:Locator': 'Match(tag)',
+        'DefaultConnection': "Url=https://primary;Database=db1;ApiKey=11111111-1111-1111-1111-111111111111;Failover = {Url:'https://secondary', ApiKey:'11111111-1111-1111-1111-111111111111'}",
+        'OtherDefaultConnection': 'connectionStringValue2',
+        'ParameterConnection': 'New_Connection_String From xml var subs',
+        'connectionString': 'replaced_value',
+        'invariantName': 'System.Data.SqlServer',
+        'blatvar': 'ApplicationSettingReplacedValue',
+        'log_level': 'error,warning',
+        'Email:ToOverride': ''
+    };
+
+    beforeEach(() => {
+        Object.entries(testEnvVars).forEach(([key, value]) => { process.env[key] = value; });
+    });
+
+    afterEach(() => {
+        Object.keys(testEnvVars).forEach(key => { delete process.env[key]; });
+    });
+
+    it("Should substitute", () => {
         function replaceEscapeXMLCharacters(xmlDOMNode) {
             if(!xmlDOMNode || typeof xmlDOMNode == 'string') {
                 return;

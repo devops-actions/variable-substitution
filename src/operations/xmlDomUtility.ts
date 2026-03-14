@@ -1,5 +1,5 @@
-var envVarUtility = require("./envVariableUtility");
-var ltx = require('ltx');
+import * as envVarUtility from "./envVariableUtility.js";
+import * as ltx from 'ltx';
 
 export class XmlDomUtility  {
 

@@ -1,6 +1,6 @@
-import core = require("@actions/core");
+import * as core from "@actions/core";
 
-import { EnvTreeUtility } from "./envVariableUtility";
+import { EnvTreeUtility } from "./envVariableUtility.js";
 
 export class JsonSubstitution {
     constructor() {

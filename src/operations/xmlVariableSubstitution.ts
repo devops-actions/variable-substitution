@@ -1,8 +1,8 @@
-import core =require('@actions/core');
+import * as core from "@actions/core";
 
-import { XmlDomUtility } from "./xmlDomUtility";
+import { XmlDomUtility } from "./xmlDomUtility.js";
 
-let envVarUtility = require ('./envVariableUtility');
+import * as envVarUtility from "./envVariableUtility.js";
 
 const tags = ["applicationSettings", "appSettings", "connectionStrings", "configSections"];
 
