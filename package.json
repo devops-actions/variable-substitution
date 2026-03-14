@@ -35,6 +35,10 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   },
+  "overrides": {
+    "diff": "8.0.3",
+    "serialize-javascript": "7.0.4"
+  },
   "dependencies": {
     "@actions/core": "^3.0.0",
     "js-yaml": "^4.1.1",
