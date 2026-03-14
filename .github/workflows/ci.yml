@@ -22,7 +22,9 @@ jobs:
 
     - name: Enable long paths for Windows
       if: runner.os == 'Windows'
-      run: git config --global core.longpaths true
+      run: |
+        git config --global core.longpaths true
+        git config --global core.symlinks false
 
     - name: 'Checking out repo code'
       uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -109,7 +111,9 @@ jobs:
 
     - name: Enable long paths for Windows
       if: runner.os == 'Windows'
-      run: git config --global core.longpaths true
+      run: |
+        git config --global core.longpaths true
+        git config --global core.symlinks false
 
     - name: 'Checking out repo code'
       uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
