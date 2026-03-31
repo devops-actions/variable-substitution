@@ -1,4 +1,3 @@
-
 name: "Issue/PR Tag"
 
 permissions:
@@ -20,7 +19,7 @@ jobs:
       issues: write
       pull-requests: write
     with:
-      org_name: devops-actions
+      org_name: ${{ vars.FIXED_ORG_NAME }}
       tag_team: ${{ vars.TAG_TEAM }}
       issue: ${{ github.event.issue.number }}
       pr: ${{ github.event.pull_request.number }}
