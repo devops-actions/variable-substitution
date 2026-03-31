@@ -19,9 +19,9 @@ jobs:
       issues: write
       pull-requests: write
     with:
-      org_name: ${{ vars.FIXED_ORG_NAME }}
-      tag_team: ${{ vars.TAG_TEAM }}
-      issue: ${{ github.event.issue.number }}
-      pr: ${{ github.event.pull_request.number }}
+      org_name: "${{ vars.FIXED_ORG_NAME }}"
+      tag_team: "${{ vars.TAG_TEAM }}"
+      issue: "${{ github.event.issue.number }}"
+      pr: "${{ github.event.pull_request.number }}"
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
