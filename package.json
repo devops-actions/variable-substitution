@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "type": "module",
   "description": "File transformation and variable substitution task: Update tokens in your XML based configuration files and then replaces those tokens with variable values. Currently XML, JSON, YAML file formats are supported for variable substitution.",
+  "engines": {
+    "node": ">=20"
+  },
   "main": "index.js",
   "scripts": {
     "build": "tsc",
