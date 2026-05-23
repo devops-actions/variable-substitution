@@ -7,6 +7,6 @@ permissions:
 
 jobs:
   validate-examples:
-    uses: devops-actions/.github/.github/workflows/actions-example-checker.yml@6a17a60cccdb250aca42f4cccc44249170cb5d19 # main
+    uses: devops-actions/.github/.github/workflows/actions-example-checker.yml@b77cea6d7ba1cd4e001581783cc592bbb63ce46d # main
     permissions:
       contents: read
