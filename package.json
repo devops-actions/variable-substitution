@@ -21,6 +21,9 @@
   ],
   "author": "Sumiran Aggarwal <suaggar@microsoft.com>",
   "license": "MIT",
+  "engines": {
+    "node": ">=24"
+  },
   "bugs": {
     "url": "https://github.com/SumiranAgg/filetransform/issues"
   },
