@@ -38,7 +38,7 @@
   "devDependencies": {
     "@types/minimatch": "^6.0.0",
     "@types/mocha": "^10.0.10",
-    "@types/node": "^25.6.0",
+    "@types/node": "^25.9.1",
     "mocha": "^11.7.5",
     "c8": "^11.0.0",
     "sinon": "^21.1.2",
