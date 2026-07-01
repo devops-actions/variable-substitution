@@ -52,7 +52,7 @@
   },
   "dependencies": {
     "@actions/core": "^3.0.1",
-    "js-yaml": "^4.2.0",
+    "js-yaml": "^5.2.0",
     "ltx": "^3.1.2",
     "minimatch": "^10.2.5"
   }
