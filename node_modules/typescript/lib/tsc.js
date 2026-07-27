@@ -1,8 +1,28 @@
-// This file is a shim which defers loading the real module until the compile cache is enabled.
+#!/usr/bin/env node
+
+import getExePath from "#getExePath";
+import { execFileSync } from "node:child_process";
+
+const exe = getExePath();
+
+if (process.platform !== "win32" && typeof process.execve === "function") {
+    // > v22.15.0
+    try {
+        process.execve(exe, [exe, ...process.argv.slice(2)]);
+    }
+    catch {
+        // may not be available, ignore the error and fallback
+    }
+}
+
 try {
-  const { enableCompileCache } = require("node:module");
-  if (enableCompileCache) {
-    enableCompileCache();
-  }
-} catch {}
-module.exports = require("./_tsc.js");
+    execFileSync(exe, process.argv.slice(2), { stdio: "inherit" });
+}
+catch (e) {
+    if (e.status) {
+        process.exitCode = e.status;
+    }
+    else {
+        throw e;
+    }
+}
