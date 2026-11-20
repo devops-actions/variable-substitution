@@ -29,6 +29,17 @@ jobs:
     - name: 'Checking out repo code'
       uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
+    - name: 'Check for symlinks'
+      if: runner.os == 'Linux'
+      shell: bash
+      run: |
+        links=$(git ls-files -s | awk '$1 == "120000" { print $4 }')
+        if [ -n "$links" ]; then
+          echo "::error::Workflows can't download this action on Linux and macOS runners while it holds symlinks:"
+          echo "$links"
+          exit 1
+        fi
+
     - name: cleanup node_modules
       shell: pwsh
       run: |
