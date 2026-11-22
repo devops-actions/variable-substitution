@@ -45,6 +45,26 @@ jobs:
  ```
 # Contributing
 
+## Action download regression (#370 / #371)
+
+`node --test scripts/action-download.test.mjs` checks the committed Git tree for
+symlinks, even on Windows or after `npm ci` has replaced the CLI shims. Set
+`ACTION_TEST_REF` to a fetched commit to check that tree without checking it out
+or executing its code. This check intentionally fails until the packaging fix
+in #371 is applied.
+
+The **Action download regression** workflow compares pinned main/v3.0.0 and
+PR #371 on Ubuntu latest, macOS, and Windows 2025. Unlike CI's `uses: ./`,
+remote `uses:` exercises the runner's archive download and staging. Each job
+asserts nested JSON substitution and preservation of an unrelated key.
+Baseline Linux/macOS jobs are expected to fail in **Set up job**, so those
+diagnostic jobs tolerate failure; the candidate jobs and published-tree check
+do not. A green baseline Windows job alone does not prove Unix compatibility.
+
+Candidate code runs only in ephemeral GitHub-hosted jobs with no checkout,
+secrets, persisted credentials, caches, or write permissions. Both action
+revisions are immutable; update them only after reviewing the runtime diff.
+
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
 Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
 the rights to use your contribution. For details, visit https://cla.opensource.microsoft.com.
