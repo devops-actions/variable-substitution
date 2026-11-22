@@ -45,6 +45,12 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-2025]
     steps:
+      - name: Enable long paths for Windows
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          git config --global core.longpaths true
+          git config --global core.symlinks false
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
