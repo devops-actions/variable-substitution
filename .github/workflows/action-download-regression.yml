@@ -39,7 +39,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-26.04, macos-latest, windows-2025]
+        os: [ubuntu-latest, macos-latest, windows-2025]
     steps:
       - name: Create fixture
         shell: pwsh
@@ -67,7 +67,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-26.04, macos-latest, windows-2025]
+        os: [ubuntu-latest, macos-latest, windows-2025]
     # No checkout, credentials, secrets, caches, artifacts or privileged runner.
     # The pinned candidate only deletes npm shims; runtime files match main.
     steps:

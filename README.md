@@ -54,7 +54,7 @@ or executing its code. This check intentionally fails until the packaging fix
 in #371 is applied.
 
 The **Action download regression** workflow compares pinned main/v3.0.0 and
-PR #371 on Ubuntu 26.04, macOS, and Windows 2025. Unlike CI's `uses: ./`,
+PR #371 on Ubuntu latest, macOS, and Windows 2025. Unlike CI's `uses: ./`,
 remote `uses:` exercises the runner's archive download and staging. Each job
 asserts nested JSON substitution and preservation of an unrelated key.
 Baseline Linux/macOS jobs are expected to fail in **Set up job**, so those
