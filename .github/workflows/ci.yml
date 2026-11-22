@@ -104,12 +104,14 @@ jobs:
         $codeBlock = '```'
         $comment = "## Test Coverage Report`n`n$codeBlock`n$tbl_md`n`n$summary`n$codeBlock"
 
-        $url = "https://api.github.com/repos/${env:GITHUB_REPOSITORY}/issues/${env:PR_NUMBER}/comments"
-        $headers = @{
-          "Authorization" = "token ${env:GITHUB_TOKEN}"
+        if ('${{ github.event.pull_request.head.repo.full_name == github.repository }}' -eq 'true') {
+          $url = "https://api.github.com/repos/${env:GITHUB_REPOSITORY}/issues/${env:PR_NUMBER}/comments"
+          $headers = @{
+            "Authorization" = "token ${env:GITHUB_TOKEN}"
+          }
+          $payload = @{ body = $comment } | ConvertTo-Json -Depth 3
+          Invoke-RestMethod -Method POST -Uri $url -Headers $headers -ContentType "application/json" -Body $payload
         }
-        $payload = @{ body = $comment } | ConvertTo-Json -Depth 3
-        Invoke-RestMethod -Method POST -Uri $url -Headers $headers -ContentType "application/json" -Body $payload
 
   test_action_job:
     name: 'Execute the local action'
