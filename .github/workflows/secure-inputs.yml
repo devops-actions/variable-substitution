@@ -24,3 +24,5 @@ jobs:
     uses: devops-actions/.github/.github/workflows/secure-inputs.yml@4b37bf2261e6208f77520bc3719a8f8b9653e551 # main
     permissions:
       contents: read
+      issues: write
+      pull-requests: write

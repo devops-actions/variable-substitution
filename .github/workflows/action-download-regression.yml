@@ -7,12 +7,16 @@ on:
       - 'scripts/action-download.test.mjs'
       - 'node_modules/**'
       - 'action.yml'
+      - 'src/**'
+      - 'lib/**'
   pull_request:
     paths:
       - '.github/workflows/action-download-regression.yml'
       - 'scripts/action-download.test.mjs'
       - 'node_modules/**'
       - 'action.yml'
+      - 'src/**'
+      - 'lib/**'
   workflow_dispatch:
 
 permissions: {}
@@ -30,54 +34,33 @@ jobs:
           persist-credentials: false
       - run: node --test scripts/action-download.test.mjs
 
-  baseline:
-    name: Main download (${{ matrix.os }})
-    runs-on: ${{ matrix.os }}
-    timeout-minutes: 10
-    # Linux/macOS fail during Set up job, before any step can handle the error.
-    continue-on-error: true
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest, macos-latest, windows-2025]
-    steps:
-      - name: Create fixture
-        shell: pwsh
-        run: |
-          New-Item -ItemType Directory -Path app/sub -Force | Out-Null
-          '{"Logging":{"Level":"x"},"ConnectionStrings":{"Db":"old"}}' | Set-Content -Path app/sub/appsettings.json -Encoding utf8NoBOM
-      - name: Download and run main
-        uses: devops-actions/variable-substitution@47ae26c7849050b5926d2f50bce02a9131b90f26 # main / v3.0.0
-        with:
-          files: 'app/**/appsettings*json'
-        env:
-          ConnectionStrings.Db: new
-      - name: Assert substitution
-        shell: pwsh
-        run: |
-          $actual = Get-Content -Raw app/sub/appsettings.json | ConvertFrom-Json
-          if ($actual.ConnectionStrings.Db -cne 'new' -or $actual.Logging.Level -cne 'x') {
-            throw 'Expected Db=new and unchanged Logging.Level=x'
-          }
-
   candidate:
-    name: PR 371 download (${{ matrix.os }})
+    name: Current action (${{ matrix.os }})
+    permissions:
+      contents: read
     runs-on: ${{ matrix.os }}
     timeout-minutes: 10
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest, windows-2025]
-    # No checkout, credentials, secrets, caches, artifacts or privileged runner.
-    # The pinned candidate only deletes npm shims; runtime files match main.
     steps:
+      - name: Enable long paths for Windows
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          git config --global core.longpaths true
+          git config --global core.symlinks false
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - name: Create fixture
         shell: pwsh
         run: |
           New-Item -ItemType Directory -Path app/sub -Force | Out-Null
           '{"Logging":{"Level":"x"},"ConnectionStrings":{"Db":"old"}}' | Set-Content -Path app/sub/appsettings.json -Encoding utf8NoBOM
-      - name: Download and run PR 371
-        uses: yasmoradi/variable-substitution@fd3d5ccb283698b94dbab4ab1c4b6607d6c97fd1 # PR 371
+      - name: Run the checked-out action
+        uses: ./
         with:
           files: 'app/**/appsettings*json'
         env:
