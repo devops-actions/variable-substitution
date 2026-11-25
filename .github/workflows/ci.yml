@@ -14,9 +14,10 @@ jobs:
       issues: write
       pull-requests: write
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
     strategy:
         matrix:
-          os: [windows-latest, ubuntu-latest, macos-latest]
+          os: [windows-latest, ubuntu-latest, macos-15-intel]
         fail-fast: false
     steps:
 
@@ -116,10 +117,11 @@ jobs:
   test_action_job:
     name: 'Execute the local action'
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
     needs: build_test_job
     strategy:
         matrix:
-          os: [windows-latest, ubuntu-latest, macos-latest]
+          os: [windows-latest, ubuntu-latest, macos-15-intel]
     steps:
 
     - name: Enable long paths for Windows
