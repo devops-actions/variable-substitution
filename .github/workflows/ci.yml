@@ -9,14 +9,25 @@ permissions: read-all
 
 jobs:
   build_test_job:
-    name: 'Build and test job'
+    name: 'Build and test job (${{ matrix.platform }})'
     permissions:
       issues: write
       pull-requests: write
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
     strategy:
         matrix:
-          os: [windows-latest, ubuntu-latest, macos-latest]
+          # `platform` gives the check a stable name, so the required checks in the
+          # branch ruleset don't change when a runner label changes. `os` is the
+          # runner. macOS uses Intel because the arm64 pool (macos-latest) often
+          # cannot assign a runner within 15 minutes.
+          include:
+            - platform: windows
+              os: windows-latest
+            - platform: linux
+              os: ubuntu-latest
+            - platform: macos
+              os: macos-15-intel
         fail-fast: false
     steps:
 
@@ -114,12 +125,23 @@ jobs:
         }
 
   test_action_job:
-    name: 'Execute the local action'
+    name: 'Execute the local action (${{ matrix.platform }})'
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
     needs: build_test_job
     strategy:
         matrix:
-          os: [windows-latest, ubuntu-latest, macos-latest]
+          # `platform` gives the check a stable name, so the required checks in the
+          # branch ruleset don't change when a runner label changes. `os` is the
+          # runner. macOS uses Intel because the arm64 pool (macos-latest) often
+          # cannot assign a runner within 15 minutes.
+          include:
+            - platform: windows
+              os: windows-latest
+            - platform: linux
+              os: ubuntu-latest
+            - platform: macos
+              os: macos-15-intel
     steps:
 
     - name: Enable long paths for Windows
