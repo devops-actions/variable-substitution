@@ -35,7 +35,7 @@ jobs:
       - run: node --test scripts/action-download.test.mjs
 
   candidate:
-    name: Current action (${{ matrix.os }})
+    name: Current action (${{ matrix.platform }})
     permissions:
       contents: read
     runs-on: ${{ matrix.os }}
@@ -43,7 +43,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-2025]
+        # `platform` keeps the check name stable when a runner label changes.
+        include:
+          - platform: linux
+            os: ubuntu-latest
+          - platform: macos
+            os: macos-15-intel
+          - platform: windows
+            os: windows-2025
     steps:
       - name: Enable long paths for Windows
         if: runner.os == 'Windows'
